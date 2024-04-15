@@ -5,18 +5,18 @@ edition = "2021"
 license = "MIT OR Apache-2.0"
 homepage = "https://github.com/elarasuz/ej"
 repository = "https://github.com/elarasuz/ej"
-keywords = ["empty"]
+keywords = ["edge", "engine"]
 description = "edge data engine"
 
 [dependencies]
 # btleplug = "0.11"
 # bleasy = "0.3"
-tokio = { version = "1.36", features = ["macros", "rt", "rt-multi-thread"] }
+tokio = { version = "1.37", features = ["macros", "rt", "rt-multi-thread"] }
 # futures = "0.3"
 # tokio-stream = "0.1"
 # pretty_env_logger = "0.5"
 # uuid = "1.8"
-polars = { version = "0.39", features = ["lazy", "parquet", "csv"] }
+polars = { version = "0.39", features = ["lazy", "parquet"] }
 # polars = csv has to be removed
 chrono = "0.4"
 # akasa-core = { git = "https://github.com/akasamq/akasa/akasa-core", branch = "master" }

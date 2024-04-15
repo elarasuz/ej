@@ -1,7 +1,10 @@
 use std::fs::File;
 
 use chrono::prelude::*;
-use polars::{df, frame::DataFrame, io::{csv::CsvWriter, SerWriter}};
+use polars::io::parquet::ParquetReader;
+use polars::io::SerReader;
+use polars::prelude::ParquetWriter;
+use polars::{df, frame::DataFrame};
 
 #[tokio::main]
 async fn main() {
@@ -17,19 +20,19 @@ async fn main() {
     )
     .unwrap();
     println!("{}", df);
-    let mut file = File::create("examples/output/test.csv").expect("could not create file");
-    CsvWriter::new(&mut file).finish(&mut df).unwrap();
+    let mut file = File::create("examples/output/test.parquet").expect("could not create file");
+    ParquetWriter::new(&mut file).finish(&mut df).unwrap();
+    // CsvWriter::new(&mut file).finish(&mut df).unwrap();
 
-    // ParquetWriter::new(&mut file).finish(&mut df).unwrap();
-    // CsvWriter::new(&mut file)
-    //     .include_header(true)
-    //     .with_separator(b',')
-    //     .finish(&mut df)?;
-    // let df_csv = CsvReader::from_path("examples/output/test.csv")?
+    // lets read the parquet and dump the file
+    // let df_p = ParquetReader::from_path("examples/output/test.parquet")?
     //     .infer_schema(None)
     //     .has_header(true)
     //     .finish()?;
-    // println!("{}", df_csv);
+    let mut file_p = File::open("examples/output/test.parquet").unwrap();
+    let df_p = ParquetReader::new(&mut file_p).finish().unwrap();
+    println!("{}", df_p);
+
 }
 
 // use bleasy::{Error, ScanConfig, Scanner};

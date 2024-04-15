@@ -5,6 +5,10 @@ edge lite package
 ## Dev Workflow
 
 ```bash
+# update headers
+cbindgen --lang c --crate ej --output ej.h
+
+# update version
 cargo bump patch --git-tag
 git push --follow-tags
 ```
